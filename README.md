@@ -16,6 +16,7 @@ A web-based application for managing college events, registrations, ticket booki
 - HTML
 - CSS
 - JavaScript
-
+- backend with my sql and python
+- mangodb
 ## Author
 Bindu Madhavi
