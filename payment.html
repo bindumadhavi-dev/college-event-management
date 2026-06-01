@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Enter Details & Payment - Booking</title>
+<link rel="stylesheet" href="style.css">
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI', sans-serif;
+}
+
+body{
+background: linear-gradient(135deg,#141e30,#243b55);
+color:#fff;
+padding:0;
+}
+
+.page-content{
+margin-left:250px;
+padding:20px;
+}
+
+/* HEADER */
+header{
+text-align:center;
+padding:20px;
+font-size:24px;
+font-weight:bold;
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(10px);
+border-bottom:1px solid rgba(255,255,255,0.2);
+margin-bottom:20px;
+}
+
+.header{
+text-align:center;
+padding:20px;
+font-size:24px;
+font-weight:bold;
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(10px);
+border-radius:10px;
+margin-bottom:20px;
+}
+
+/* CONTAINER */
+.container{
+max-width:700px;
+margin:auto;
+}
+
+.section{
+background: rgba(255,255,255,0.05);
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+backdrop-filter: blur(10px);
+border:1px solid rgba(255,255,255,0.2);
+}
+
+.section h3{
+margin-bottom:15px;
+}
+
+input, select{
+width:100%;
+padding:10px;
+margin-top:5px;
+border-radius:8px;
+border:none;
+outline:none;
+background: rgba(255,255,255,0.1);
+color:#fff;
+}
+
+.radio-option{
+padding:12px;
+margin:10px 0;
+border-radius:10px;
+cursor:pointer;
+background: rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.2);
+}
+
+.radio-option.selected{
+background: rgba(0,198,255,0.3);
+}
+
+/* BUTTONS */
+.button-group{
+display:flex;
+gap:15px;
+}
+
+button{
+flex:1;
+padding:12px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+color:#fff;
+}
+
+.btn-confirm{
+background:#00c853;
+}
+
+.btn-back{
+background:#555;
+}
+/* SIDEBAR */
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+height:100%;
+width:250px;
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(10px);
+border-right:1px solid rgba(255,255,255,0.2);
+padding:20px;
+box-sizing:border-box;
+}
+
+.sidebar ul{
+list-style:none;
+padding:0;
+}
+
+.sidebar ul li{
+margin-bottom:15px;
+}
+
+.sidebar ul li a{
+text-decoration:none;
+color:#cbd5f5;
+padding:10px 15px;
+border-radius:8px;
+transition:0.3s;
+font-size: medium;
+display:block;
+}
+
+.sidebar ul li a:hover{
+background:#38bdf8;
+color:#0f172a;
+}
+
+
+</style>
+</head>
+
+<body>
+<div class="sidebar">
+    <ul>
+        <li><a href="adminpanel.html">ADMINPANEL</a></li>
+    <li><a href="register.html">REGISTER</a></li>
+    <li><a href="home.html">HOME</a></li>
+    <li><a href="login.html">LOGIN</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="live.html">LIVE</a></li>
+    <li><a href="events.html">EVENTS</a></li>
+    <li><a href="navigation.html">NAVIGATION</li>
+    <li><a href="booking.html">BOOKING</a></li>
+    <li><a href="payment.html">PAYMENT</a></li>
+    <li><a href="tickets.html">TICKETS</a></li>
+    <li><a href="attendence.html">ATTENDENCE</a></li>
+    </ul>
+</div>
+
+<header>
+ 
+    💳 Complete Your Booking & Payment
+
+</header>
+
+<div class="page-content">
+<div class="container">
+
+<!-- Booking Summary -->
+<div class="section" id="bookingSummary">
+<h3>📋 Booking Summary</h3>
+<div class="booking-summary">
+<div class="summary-item">
+<span class="summary-label"><strong>Event:</strong></span>
+<span class="summary-value" id="summaryEvent">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label"><strong>Seats:</strong></span>
+<span class="summary-value" id="summarySeat">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label"><strong>Booking ID:</strong></span>
+<span class="summary-value" id="summaryBookingId">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label"><strong>Total Price:</strong></span>
+<span class="summary-value" id="summaryPrice">₹0</span>
+</div>
+</div>
+</div>
+
+<!-- Personal Details Section -->
+<div class="section">
+<h3>👤 Personal Details</h3>
+
+<div class="form-group">
+<label for="email">Email Address <span style="color:red;">*</span></label>
+<input type="email" id="email" placeholder="Enter your email (e.g., name@example.com)" required>
+<div class="error" id="emailError"></div>
+</div>
+
+<div class="form-group">
+<label for="phone">Phone Number <span style="color:red;">*</span></label>
+<input type="tel" id="phone" placeholder="Enter your 10-digit phone number" maxlength="10" required>
+<div class="error" id="phoneError"></div>
+</div>
+
+</div>
+
+<!-- Payment Method Section -->
+<div class="section">
+<h3>💰 Select Payment Method</h3>
+
+<div class="radio-group">
+<div class="radio-option" id="upiOption" onclick="selectPaymentMethod('upi')">
+<input type="radio" name="paymentMethod" value="upi" required>
+<label class="radio-label">🔗 UPI Payment (Google Pay, PhonePe, Paytm)</label>
+</div>
+
+<div class="form-group" id="upiFields" style="display:none; margin-left:35px; margin-top:10px;">
+<label for="upiId">UPI ID <span style="color:red;">*</span></label>
+<input type="text" id="upiId" placeholder="yourname@upi (e.g., name@googlepay)">
+<div class="error" id="upiError"></div>
+</div>
+</div>
+
+<div class="radio-group">
+<div class="radio-option" id="cardOption" onclick="selectPaymentMethod('card')">
+<input type="radio" name="paymentMethod" value="card" required>
+<label class="radio-label">💳 Credit / Debit Card (Visa, Mastercard, RuPay)</label>
+</div>
+
+<div id="cardFields" style="display:none; margin-left:35px; margin-top:10px;">
+<div class="form-group">
+<label for="cardName">Name on Card <span style="color:red;">*</span></label>
+<input type="text" id="cardName" placeholder="John Doe">
+<div class="error" id="cardNameError"></div>
+</div>
+
+<div class="form-group">
+<label for="cardNumber">Card Number <span style="color:red;">*</span></label>
+<input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" pattern="[0-9 ]*">
+<div class="error" id="cardNumberError"></div>
+</div>
+
+<div style="display:grid; grid-template-columns:2fr 1fr; gap:15px;">
+<div class="form-group">
+<label for="cardExpiry">Expiry Date <span style="color:red;">*</span></label>
+<input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5">
+<div class="error" id="cardExpiryError"></div>
+</div>
+
+<div class="form-group">
+<label for="cardCVV">CVV <span style="color:red;">*</span></label>
+<input type="text" id="cardCVV" placeholder="123" maxlength="3" pattern="[0-9]*">
+<div class="error" id="cardCVVError"></div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- Buttons -->
+<div class="button-group">
+<button class="btn-back" onclick="goBack()">← Back to Seats</button>
+<button class="btn-confirm" onclick="proceedToPayment()">Confirm → Proceed to Pay →</button>
+</div>
+
+</div>
+
+<script>
+
+// Load booking data on page load
+function loadBookingData(){
+  const bookingData=localStorage.getItem('bookingData');
+  if(!bookingData){
+    alert('No booking found. Please select seats first.');
+    window.location.href='booking confirmation.html';
+    return;
+  }
+  
+  const data=JSON.parse(bookingData);
+  document.getElementById('summaryEvent').textContent=data.event;
+  document.getElementById('summarySeat').textContent=data.seats.join(', ');
+  document.getElementById('summaryBookingId').textContent=data.bookingId;
+  document.getElementById('summaryPrice').textContent='₹'+data.totalPrice;
+}
+
+// Select payment method
+function selectPaymentMethod(method){
+  document.querySelectorAll('.radio-option').forEach(opt=>opt.classList.remove('selected'));
+  document.querySelectorAll('input[name="paymentMethod"]').forEach(radio=>radio.checked=false);
+  
+  if(method==='upi'){
+    document.getElementById('upiOption').classList.add('selected');
+    document.querySelector('input[value="upi"]').checked=true;
+    document.getElementById('upiFields').style.display='block';
+    document.getElementById('cardFields').style.display='none';
+  } else if(method==='card'){
+    document.getElementById('cardOption').classList.add('selected');
+    document.querySelector('input[value="card"]').checked=true;
+    document.getElementById('upiFields').style.display='none';
+    document.getElementById('cardFields').style.display='block';
+  }
+}
+
+// Validation functions
+function validateEmail(email){
+  const re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
+function validatePhone(phone){
+  return phone.length===10 && /^[0-9]+$/.test(phone);
+}
+
+function validateUPI(upi){
+  return upi.includes('@') && upi.length>5;
+}
+
+function validateCard(cardNum){
+  const cleaned=cardNum.replace(/\s/g,'');
+  return cleaned.length===16 && /^[0-9]+$/.test(cleaned);
+}
+
+function validateExpiry(expiry){
+  return /^\d{2}\/\d{2}$/.test(expiry);
+}
+
+// Clear errors
+function clearErrors(){
+  document.querySelectorAll('.error').forEach(err=>{
+    err.textContent='';
+    err.classList.remove('show');
+  });
+}
+
+// Validate and proceed
+function proceedToPayment(){
+  clearErrors();
+  let isValid=true;
+ 
+  // Validate email
+  const email=document.getElementById('email').value.trim();
+  if(!email){
+    document.getElementById('emailError').textContent='Email is required';
+    document.getElementById('emailError').classList.add('show');
+    isValid=false;
+  } else if(!validateEmail(email)){
+    document.getElementById('emailError').textContent='Please enter a valid email';
+    document.getElementById('emailError').classList.add('show');
+    isValid=false;
+  }
+  
+  // Validate phone
+  const phone=document.getElementById('phone').value.trim();
+  if(!phone){
+    document.getElementById('phoneError').textContent='Phone number is required';
+    document.getElementById('phoneError').classList.add('show');
+    isValid=false;
+  } else if(!validatePhone(phone)){
+    document.getElementById('phoneError').textContent='Please enter a valid 10-digit phone number';
+    document.getElementById('phoneError').classList.add('show');
+    isValid=false;
+  }
+  
+  // Validate payment method
+  const selectedPayment=document.querySelector('input[name="paymentMethod"]:checked');
+  if(!selectedPayment){
+    alert('Please select a payment method');
+    isValid=false;
+  }
+  
+  if(!isValid) return;
+  
+  // If UPI selected, validate UPI ID
+  if(selectedPayment.value==='upi'){
+    const upiId=document.getElementById('upiId').value.trim();
+    if(!upiId){
+      document.getElementById('upiError').textContent='UPI ID is required';
+      document.getElementById('upiError').classList.add('show');
+      isValid=false;
+    } else if(!validateUPI(upiId)){
+      document.getElementById('upiError').textContent='Please enter a valid UPI ID';
+      document.getElementById('upiError').classList.add('show');
+      isValid=false;
+    }
+  }
+  
+  // If Card selected, validate card details
+  if(selectedPayment.value==='card'){
+    const cardNum=document.getElementById('cardNumber').value.trim();
+    const cardName=document.getElementById('cardName').value.trim();
+    const expiry=document.getElementById('cardExpiry').value.trim();
+    const cvv=document.getElementById('cardCVV').value.trim();
+    
+    if(!cardName){
+      document.getElementById('cardNameError').textContent='Cardholder name is required';
+      document.getElementById('cardNameError').classList.add('show');
+      isValid=false;
+    }
+    
+    if(!cardNum){
+      document.getElementById('cardNumberError').textContent='Card number is required';
+      document.getElementById('cardNumberError').classList.add('show');
+      isValid=false;
+    } else if(!validateCard(cardNum)){
+      document.getElementById('cardNumberError').textContent='Please enter a valid 16-digit card number';
+      document.getElementById('cardNumberError').classList.add('show');
+      isValid=false;
+    }
+    
+    if(!expiry){
+      document.getElementById('cardExpiryError').textContent='Expiry date is required';
+      document.getElementById('cardExpiryError').classList.add('show');
+      isValid=false;
+    } else if(!validateExpiry(expiry)){
+      document.getElementById('cardExpiryError').textContent='Please use MM/YY format';
+      document.getElementById('cardExpiryError').classList.add('show');
+      isValid=false;
+    }
+    
+    if(!cvv || cvv.length!==3 || !/^[0-9]*$/.test(cvv)){
+      document.getElementById('cardCVVError').textContent='Please enter a valid 3-digit CVV';
+      document.getElementById('cardCVVError').classList.add('show');
+      isValid=false;
+    }
+  }
+  
+  if(!isValid) return;
+  
+  // Store combined data and proceed to payment confirmation
+  const bookingData=JSON.parse(localStorage.getItem('bookingData'));
+  
+  const paymentData={
+    email:email,
+    phone:phone,
+    paymentMethod:selectedPayment.value,
+    paymentDetails:selectedPayment.value==='upi'?
+      {upiId:document.getElementById('upiId').value}:
+      {
+        cardNumber:document.getElementById('cardNumber').value.slice(-4),
+        cardName:document.getElementById('cardName').value,
+        expiry:document.getElementById('cardExpiry').value
+      }
+  };
+  
+  bookingData.customerDetails=paymentData;
+  localStorage.setItem('bookingData',JSON.stringify(bookingData));
+
+ localStorage.setItem('paymentData', JSON.stringify(paymentData));
+localStorage.setItem('bookingConfirmed', true); 
+  // Redirect to payment confirmation page
+  window.location.href='tickets.html';
+}
+
+function goBack(){
+  window.location.href='booking confirmation.html';
+}
+
+// Load data on page load
+document.addEventListener('DOMContentLoaded',function(){
+  loadBookingData();
+
+});
+
+</script>
+
+</div>
+</body>
+</html>

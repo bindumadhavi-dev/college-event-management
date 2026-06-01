@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+}
+
+.container{
+  width:350px;
+  padding:30px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  box-shadow:0 8px 32px rgba(0,0,0,0.6);
+}
+
+h2{text-align:center;color:#38bdf8;}
+
+input{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:none;
+  border-radius:10px;
+  background:rgba(255,255,255,0.08);
+  color:white;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  background:#38bdf8;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Login</h2>
+
+<form id="loginForm">
+    <label>Email</label>
+    <input type="text" id="email" name="email" required>
+    <label>Password</label>
+    <input type="password" id="password" name="password" required>
+    <button type="submit">Login</button>
+</form>
+</div>
+<script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+        window.location.href = "/about"; // client-side redirect
+    } else {
+        alert(data.message || "Login failed");
+    }
+});
+</script>
+</body>
+</html>

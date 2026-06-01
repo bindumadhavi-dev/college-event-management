@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>About Us</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins', sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
+}
+
+/* HEADER */
+.header{
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px 40px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(12px);
+border-bottom:1px solid rgba(255,255,255,0.1);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+/* LOGO */
+.logo{
+font-size:22px;
+font-weight:600;
+color:#38bdf8;
+}
+
+/* ===== SIDEBAR (ADDED PROPERLY) ===== */
+.sidebar{
+position:fixed;
+top:0;
+left:0;
+width:220px;
+height:100%;
+background:#0f172a;
+padding:20px;
+box-shadow:5px 0 15px rgba(0,0,0,0.5);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #cbd5f5;
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background: #1e293b;
+  color: #38bdf8;
+}
+
+/* SHIFT CONTENT */
+.main-content {
+  margin-left: 220px;
+}
+
+/* ABOUT SECTION */
+.about{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:80vh;
+padding:20px;
+}
+
+/* GLASS BOX */
+.about-box{
+max-width:750px;
+padding:40px;
+border-radius:20px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.1);
+box-shadow:0 8px 32px rgba(0,0,0,0.6);
+text-align:center;
+animation:fadeIn 1s ease;
+}
+
+/* TEXT */
+.about-box h1{
+color:#38bdf8;
+margin-bottom:20px;
+}
+
+.about-box p{
+color:#cbd5f5;
+font-size:16px;
+line-height:1.7em;
+margin-bottom:15px;
+}
+
+/* ANIMATION */
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<nav class="sidebar">
+  <ul>
+    <li><a href="adminpanel.html">ADMINPANEL</a></li>
+    <li><a href="register.html">REGISTER</a></li>
+    <li><a href="home.html">HOME</a></li>
+    <li><a href="login.html">LOGIN</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="live.html">LIVE</a></li>
+    <li><a href="events.html">EVENTS</a></li>
+    <li><a href="navigation.html">NAVIGATION</li>
+    <li><a href="booking.html">BOOKING</a></li>
+    <li><a href="payment.html">PAYMENT</a></li>
+    <li><a href="tickets.html">TICKETS</a></li>
+    <li><a href="attendence.html">ATTENDENCE</a></li>
+  </ul>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-content">
+
+<header class="header">
+     <h1>College Event Management</h1>
+</header>
+
+<main>
+
+<section class="about">
+
+<div class="about-box">
+
+<h1>About Our Event Management System</h1>
+
+<p>
+Our Event Management System is designed to make organizing and participating in events easy and efficient. 
+Students can explore upcoming events, register quickly, and book seats online without any hassle.
+</p>
+
+<p>
+The platform helps colleges manage technical fests, cultural programs, workshops, and seminars in a simple digital way. 
+It improves communication between organizers and participants and ensures smooth event planning.
+</p>
+
+<p>
+With features like event listings, seat booking, live updates, and secure login, this system provides a modern solution 
+for managing college events effectively.
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+</body>
+</html>

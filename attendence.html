@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>attendence</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Poppins, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      align-items: center;
+    }
+
+    .header .logo {
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+
+    .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100%;
+  background: #0f172a;
+  padding: 20px;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 12px 0;
+}
+
+.sidebar ul li a {
+  display: block;
+  color: #cbd5f5;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.sidebar ul li a:hover {
+  background: #1e293b;
+  color: #38bdf8;
+}
+
+    .main-content {
+  margin-left: 220px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 18px;
+      backdrop-filter: blur(6px);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #e2e8f0;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0 4px;
+      color: #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #94a3b8;
+      background: rgba(15, 23, 42, 0.85);
+      color: #e2e8f0;
+      box-sizing: border-box;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .row > * {
+      flex: 1;
+      min-width: 190px;
+    }
+
+    button {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #0f172a;
+      background: #38bdf8;
+      transition: opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.92;
+    }
+
+    .btn.secondary {
+      background: #475569;
+      color: white;
+    }
+
+    .btn.danger {
+      background: #ef4444;
+      color: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      color: #e2e8f0;
+    }
+
+    th,
+    td {
+      border: 1px solid #334155;
+      padding: 9px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.9);
+      font-weight: 700;
+    }
+
+    .status-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .status-yes {
+      background: #68d391;
+      color: #0f172a;
+    }
+
+    .status-no {
+      background: #fbbf24;
+      color: #1a202c;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .alert {
+      background: rgba(56, 189, 248, 0.15);
+      border-left: 4px solid #38bdf8;
+      padding: 10px;
+      margin-bottom: 12px;
+      color: #e0f2fe;
+    }
+    /* Hide the real input */
+#student-ticket-pic {
+  display: none;
+}
+
+/* Style the label like a button */
+.file-upload {
+  display: inline-block;
+  padding: 10px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.file-upload:hover {
+  background-color: #45a049;
+}
+
+/* Optional: show selected file name */
+.file-upload::after {
+  content: " (Choose file)";
+  font-size: 12px;
+  color: #ddd;
+}
+
+  </style>
+  
+</head>
+<body>
+  
+    <nav class="sidebar">
+  <ul>
+    
+    <li><a href="register.html">REGISTER</a></li>
+    <li><a href="home.html">HOME</a></li>
+    <li><a href="login.html">LOGIN</a></li>
+    <li><a href="adminpanel.html">ADMINPANEL</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="live.html">LIVE</a></li>
+    <li><a href="events.html">EVENTS</a></li>
+    <li><a href="navigation.html">NAVIGATION</a></li>
+    <li><a href="booking.html">BOOKING</a></li>
+    <li><a href="payment.html">PAYMENT</a></li>
+    <li><a href="tickets.html">TICKETS</a></li>
+    <li><a href="attendence">ATTENDENCE</a></li>
+  </ul>
+</nav>
+ <div class="main-content">
+    <header class="header">
+       <div class="logo">EVENT MANAGEMENT</div>
+  </header>
+
+  <main class="container">
+    <section id="dashboard" class="card">
+      <h2>Student Event Attendance</h2>
+      <div class="row">
+        <div>
+          <label for="student-name">Student Name</label>
+          <input id="student-name" type="text" placeholder="e.g., Aman Singh" />
+        </div>
+        <div>
+          <label for="student-id">Student ID</label>
+          <input id="student-id" type="text" placeholder="e.g., CSE2026-01" />
+        </div>
+        <div>
+          <label for="student-section">Section</label>
+          <select id="student-section">
+            <option value="alpha">alpha</option>
+            <option value="beta">beta</option>
+            <option value="gama">gama</option>
+            <option value="delta">delta</option>
+            <option value="sigma">sigma</option>
+            <option value="omega">omega</option>
+            <option value="zeta">zeta</option>
+            <option value="epsilon">epsilon</option>
+          </select>
+        </div>
+        <div>
+          <label for="student-course">Course</label>
+          <select id="student-course">
+            <option>CSE</option>
+            <option>AIML</option>
+            <option>DS</option>
+            <option>IT</option>
+            <option>IOT</option>
+            <option>CS</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <div>
+          <label for="student-attending">Going to event</label>
+          <select id="student-attending">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div>
+          <label for="student-ticket-id">Ticket ID</label>
+          <input id="student-ticket-id" type="text" placeholder="Enter ticket number" />
+        </div>
+        <div>
+          <label for="student-ticket-details">Ticket Details</label>
+          <input id="student-ticket-details" type="text" placeholder="e.g., VIP access / Gate A" />
+        </div>
+        <div>
+          <label for="student-ticket-pic" class="file-upload"> upload Ticket Picture</label>
+          <input id="student-ticket-pic" type="file" accept="image/*" />
+        </div>
+        <div style="align-self:flex-end;">
+          <label><input id="student-ticket" type="checkbox" style="margin-right:6px;" /> Ticket booked</label>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <button id="add-student-btn">Add/Update</button>
+        <button id="reset-btn" class="btn secondary" style="margin-left:8px;">Reset</button>
+      </div>
+    </section>
+  </main>
+  </div>
+
+  <script>
+  const addBtn = document.getElementById('add-student-btn');
+  const resetBtn = document.getElementById('reset-btn');
+
+  function resetForm() {
+    document.getElementById('student-name').value = '';
+    document.getElementById('student-id').value = '';
+    document.getElementById('student-section').value = 'alpha';
+    document.getElementById('student-course').value = 'CSE';
+    document.getElementById('student-attending').value = 'yes';
+    document.getElementById('student-ticket').checked = false;
+    document.getElementById('student-ticket-id').value = '';
+    document.getElementById('student-ticket-details').value = '';
+    document.getElementById('student-ticket-pic').value = '';
+  }
+
+  function addOrUpdateStudent() {
+    const name = document.getElementById('student-name').value.trim();
+    const id = document.getElementById('student-id').value.trim();
+
+    if (!name || !id) {
+      alert('Student name and ID are required');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('student_name', name);
+    formData.append('student_id', id);
+    formData.append('student_section', document.getElementById('student-section').value);
+    formData.append('student_course', document.getElementById('student-course').value);
+    formData.append('student_attending', document.getElementById('student-attending').value);
+    formData.append('student_ticket', document.getElementById('student-ticket').checked);
+    formData.append('student_ticket_id', document.getElementById('student-ticket-id').value.trim());
+    formData.append('student_ticket_details', document.getElementById('student-ticket-details').value.trim());
+
+    const fileInput = document.getElementById('student-ticket-pic');
+    if (fileInput.files.length > 0) {
+      formData.append('ticket_pic', fileInput.files[0]);
+    }
+
+    // Send data to backend
+    fetch('http://localhost:3000/attendance', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      resetForm();                 // reset the form
+      window.location.href = 'tickets.html';// redirect to ticket.html
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Error saving data');
+    });
+  }
+
+  addBtn.addEventListener('click', addOrUpdateStudent);
+  resetBtn.addEventListener('click', resetForm);
+
+  // Reload attendance page if user goes back from ticket.html
+  window.onpageshow = function(event) {
+    if (event.persisted || window.performance.getEntriesByType("navigation")[0].type === "back_forward") {
+      location.reload();
+    }
+  };
+</script>
+</body>
+</html>

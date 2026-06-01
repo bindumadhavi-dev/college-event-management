@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>QR Scanner</title>
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<style>
+body{
+background:#111;
+color:white;
+text-align:center;
+font-family:Arial;
+}
+#reader{
+width:300px;
+margin:auto;
+}
+.result{
+margin-top:20px;
+font-size:18px;
+}
+.success{color:lime;}
+.error{color:red;}
+</style>
+</head>
+
+<body>
+
+<h2>🎫 Scan Ticket</h2>
+
+<div id="reader"></div>
+
+<div id="result" class="result"></div>
+
+<script>
+
+function onScanSuccess(decodedText){
+
+    const data = JSON.parse(decodedText);
+
+    fetch("http://localhost:3000/verify-ticket", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(res=>res.json())
+    .then(res=>{
+        const resultDiv = document.getElementById("result");
+
+        if(res.success){
+            resultDiv.innerHTML = "✅ ENTRY ALLOWED";
+            resultDiv.className = "result success";
+        }else{
+            resultDiv.innerHTML = "❌ " + res.message;
+            resultDiv.className = "result error";
+        }
+    });
+
+}
+
+const scanner = new Html5QrcodeScanner("reader", {
+    fps:10,
+    qrbox:250
+});
+
+scanner.render(onScanSuccess);
+
+</script>
+
+</body>
+</html>

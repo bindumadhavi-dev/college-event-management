@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Confirmation - College Events</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.sidebar{
+    width:260px;
+    background:#0b1222;
+    border-right:1px solid rgba(255,255,255,0.07);
+    padding:24px;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    overflow-y:auto;
+}
+
+.sidebar .logo{
+    font-size:1.25rem;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:24px;
+    color:#38bdf8;
+}
+
+.sidebar nav ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.sidebar nav ul li a{
+    display:block;
+    text-decoration:none;
+    color:#cbd5f5;
+    padding:10px 12px;
+    border-radius:8px;
+    transition:0.2s;
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active{
+    background:#38bdf8;
+    color:#0f172a;
+}
+.success-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 700px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.success-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.success-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+    display: block;
+    animation: bounceIn 0.8s ease;
+    transform-origin: center;
+}
+
+.success-header h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.success-header p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.booking-content {
+    padding: 40px;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.section h2 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #667eea;
+    display: flex;
+    align-items: center;
+}
+
+.section h2::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: #667eea;
+    margin-right: 10px;
+    border-radius: 2px;
+}
+
+.ticket-details {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    color: #666;
+    font-weight: 500;
+}
+
+.detail-value {
+    color: #333;
+    font-weight: 600;
+    text-align: right;
+}
+
+.seats-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.seat-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.qr-code-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-radius: 15px;
+    border: 2px dashed #667eea;
+}
+
+.qr-code-section h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#qrCode {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#qrCode img {
+    display: block;
+}
+
+.qr-instruction {
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+.payment-summary {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+    color: #555;
+    font-size: 15px;
+}
+
+.price-row.total {
+    font-size: 18px;
+    font-weight: 700;
+    color: #667eea;
+    border-top: 2px solid #e0e0e0;
+    padding-top: 12px;
+    margin-top: 12px;
+}
+
+.personal-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.info-item {
+    flex: 1;
+}
+
+.info-label {
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+button {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-download {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-home {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.btn-home:hover {
+    background: #d0d0d0;
+}
+
+.confirmation-notice {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: #2e7d32;
+}
+
+.confirmation-notice strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 600px) {
+    .booking-content {
+        padding: 20px;
+    }
+
+    .personal-info {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-row {
+        flex-direction: column;
+    }
+
+    .detail-label,
+    .detail-value {
+        text-align: left;
+    }
+
+    .success-header {
+        padding: 30px 20px;
+    }
+
+    .success-header h1 {
+        font-size: 24px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+<body>
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="logo">EVENT MANAGEMENT</div>
+        <nav>
+            <ul>
+                <li><a href="register.html">REGISTER</a></li>
+    <li><a href="home.html">HOME</a></li>
+    <li><a href="login.html">LOGIN</a></li>
+    <li><a href="adminpanel.html">ADMINPANEL</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="live.html">LIVE</a></li>
+    <li><a href="events.html">EVENTS</a></li>
+    <li><a href="navigation.html">NAVIGATION</a></li>
+    <li><a href="booking.html">BOOKING</a></li>
+    <li><a href="payment.html">PAYMENT</a></li>
+    <li><a href="tickets.html">TICKETS</a></li>
+    <li><a href="attendence.html">ATTENDENCE</a></li
+            </ul>
+        </nav>
+    </aside>
+<div class="success-container">
+    <!-- Success Header -->
+    <div class="success-header">
+        <span class="success-icon">✅</span>
+        <h1>Booking Confirmed!</h1>
+        <p>Your tickets are ready to use</p>
+    </div>
+
+    <div class="booking-content">
+        <!-- Confirmation Notice -->
+        <div class="confirmation-notice">
+            <strong>🎉 Your booking has been successfully confirmed!</strong>
+            A confirmation email has been sent to your registered email address with all the details.
+        </div>
+
+        <!-- Booking Details Section -->
+        <div class="section">
+            <h2>Booking Details</h2>
+            <div class="ticket-details">
+                <div class="detail-row">
+                    <span class="detail-label">Booking ID</span>
+                    <span class="detail-value" id="bookingId">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Event Name</span>
+                    <span class="detail-value" id="eventName">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Booking Date</span>
+                    <span class="detail-value" id="bookingDate">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Number of Tickets</span>
+                    <span class="detail-value" id="ticketCount">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Seat Numbers</span>
+                    <span class="seats-display" id="seatsDisplay"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Information Section -->
+        <div class="section">
+            <h2>Your Information</h2>
+            <div class="personal-info">
+                <div class="info-item">
+                    <div class="info-label">Email Address</div>
+                    <div class="info-value" id="email">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Phone Number</div>
+                    <div class="info-value" id="phone">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Payment Method</div>
+                    <div class="info-value" id="paymentMethod">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Transaction Status</div>
+                    <div class="info-value" style="color: #4caf50;">✓ Confirmed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QR Code Section -->
+        <div class="section">
+            <h2>Your QR Code</h2>
+            <div class="qr-code-section">
+                <h3>Scan at Venue Entrance</h3>
+                <div id="qrCode"></div>
+                <p class="qr-instruction">Please present this QR code at the venue entrance for entry verification</p>
+            </div>
+        </div>
+
+        <!-- Payment Summary -->
+        <div class="section">
+            <h2>Payment Summary</h2>
+            <div class="payment-summary">
+                <div class="price-row">
+                    <span>Price per Ticket:</span>
+                    <span>₹500</span>
+                </div>
+                <div class="price-row">
+                    <span>Number of Tickets:</span>
+                    <span id="summaryTicketCount">-</span>
+                </div>
+                <div class="price-row">
+                    <span>Convenience Fee:</span>
+                    <span>₹<span id="convenienceFee">0</span></span>
+                </div>
+                <div class="price-row total">
+                    <span>Total Amount Paid:</span>
+                    <span>₹<span id="totalAmount">0</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <button class="btn-download" onclick="downloadReceipt()">📥 Download Receipt</button>
+            <button class="btn-home" onclick="goHome()">🏠 Go to Home</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Load and display all booking information
+function loadAndDisplayBooking() {
+    const bookingData = JSON.parse(localStorage.getItem('bookingData'));
+    const paymentData = JSON.parse(localStorage.getItem('paymentData'));
+    const isConfirmed = localStorage.getItem('bookingConfirmed');
+
+    if (!bookingData || !paymentData || !isConfirmed) {
+        alert('Booking data not found. Redirecting...');
+        window.location.href = 'booking confirmation.html';
+        return;
+    }
+
+    // Display booking details
+    document.getElementById('bookingId').textContent = bookingData.bookingId;
+    document.getElementById('eventName').textContent = bookingData.event;
+    document.getElementById('bookingDate').textContent = new Date().toLocaleDateString('en-IN', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+    document.getElementById('ticketCount').textContent = bookingData.seats.length;
+
+    // Display seats
+    const seatsDisplay = document.getElementById('seatsDisplay');
+    seatsDisplay.innerHTML = '';
+    bookingData.seats.forEach(seat => {
+        const badge = document.createElement('span');
+        badge.className = 'seat-badge';
+        badge.textContent = `Seat ${seat}`;
+        seatsDisplay.appendChild(badge);
+    });
+
+    // Display personal information
+    document.getElementById('email').textContent = paymentData.email;
+    document.getElementById('phone').textContent = paymentData.phone;
+    document.getElementById('paymentMethod').textContent = paymentData.paymentMethod;
+
+    // Calculate and display payment summary
+    const ticketCount = bookingData.seats.length;
+    const pricePerTicket = 500;
+    const convenienceFee = Math.round(ticketCount * 50);
+    const totalAmount = (ticketCount * pricePerTicket) + convenienceFee;
+
+    document.getElementById('summaryTicketCount').textContent = ticketCount;
+    document.getElementById('convenienceFee').textContent = convenienceFee;
+    document.getElementById('totalAmount').textContent = totalAmount;
+
+    // Generate QR Code with booking information
+    generateQRCode(bookingData, paymentData);
+}
+
+// Generate QR Code
+function generateQRCode(bookingData, paymentData) {
+    const qrData = {
+        bookingId: bookingData.bookingId,
+        event: bookingData.event,
+        seats: bookingData.seats.join(','),
+        email: paymentData.email,
+        phone: paymentData.phone,
+        timestamp: new Date().toISOString()
+    };
+
+    const qrString = JSON.stringify(qrData);
+    
+    // Clear previous QR code
+    document.getElementById('qrCode').innerHTML = '';
+    
+    // Generate new QR code
+    new QRCode(document.getElementById('qrCode'), {
+        text: qrString,
+        width: 250,
+        height: 250,
+        colorDark: '#667eea',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+    });
+}
+
+// Download receipt as PDF (simulated with print)
+function downloadReceipt() {
+    const bookingData = JSON.parse(localStorage.getItem('bookingData'));
+    const paymentData = JSON.parse(localStorage.getItem('paymentData'));
+    const ticketCount = bookingData.seats.length;
+    const pricePerTicket = 500;
+    const convenienceFee = Math.round(ticketCount * 50);
+    const totalAmount = (ticketCount * pricePerTicket) + convenienceFee;
+
+    const receiptContent = `
+        BOOKING RECEIPT
+        ===============================================
+        
+        Booking ID: ${bookingData.bookingId}
+        Event: ${bookingData.event}
+        Booking Date: ${new Date().toLocaleDateString('en-IN')}
+        
+        CUSTOMER DETAILS
+        -----------------------------------------------
+        Email: ${paymentData.email}
+        Phone: ${paymentData.phone}
+        
+        TICKET DETAILS
+        -----------------------------------------------
+        Number of Tickets: ${ticketCount}
+        Seats: ${bookingData.seats.join(', ')}
+        
+        PAYMENT SUMMARY
+        -----------------------------------------------
+        Price per Ticket: ₹500 x ${ticketCount} = ₹${ticketCount * 500}
+        Convenience Fee: ₹${convenienceFee}
+        Payment Method: ${paymentData.paymentMethod}
+        
+        TOTAL AMOUNT PAID: ₹${totalAmount}
+        ===============================================
+        
+        Please present the QR code at the venue entrance.
+        Thank you for booking with us!
+    `;
+
+    // Create a new window for printing
+    const printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write('<pre>' + receiptContent + '</pre>');
+    printWindow.document.close();
+    printWindow.print();
+}
+
+function goHome() {
+    // Clear booking data from localStorage
+    localStorage.removeItem('bookingData');
+    localStorage.removeItem('paymentData');
+    localStorage.removeItem('bookingConfirmed');
+    
+    window.location.href = 'Home page.html';
+}
+
+// Load data when page loads
+window.addEventListener('load', loadAndDisplayBooking);
+</script>
+
+</body>
+</html>

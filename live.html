@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Updates - Pro</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#1e293b,#0f172a);
+color:#fff;
+}
+
+/* ===== SIDEBAR (ADDED ONLY) ===== */
+.sidebar{
+position:fixed;
+top:0;
+left:0;
+width:220px;
+height:100%;
+background:#0f172a;
+padding:20px;
+box-shadow:5px 0 15px rgba(0,0,0,0.5);
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar ul li{
+margin:15px 0;
+}
+
+.sidebar ul li a{
+text-decoration:none;
+color:#cbd5f5;
+padding:8px 14px;
+border-radius:8px;
+display:block;
+transition:0.3s;
+}
+
+.sidebar ul li a:hover{
+background:#38bdf8;
+color:#0f172a;
+}
+
+/* SHIFT CONTENT */
+.main-content{
+margin-left:220px;
+}
+
+/* HEADER (UNCHANGED) */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 50px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+border-bottom:1px solid rgba(255,255,255,0.1);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-size:24px;
+font-weight:600;
+color:#38bdf8;
+}
+
+/* LIVE SECTION */
+.live-section{
+text-align:center;
+padding:60px 20px;
+}
+
+.live-section h1{
+font-size:36px;
+margin-bottom:10px;
+}
+
+.live-section p{
+color:#94a3b8;
+margin-bottom:40px;
+}
+
+/* STATUS */
+.status{
+display:inline-block;
+padding:6px 15px;
+border-radius:20px;
+background:#22c55e;
+font-size:12px;
+margin-bottom:30px;
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+0%{opacity:1}
+50%{opacity:0.5}
+100%{opacity:1}
+}
+
+/* CARDS */
+.updates-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+max-width:1100px;
+margin:auto;
+}
+
+.update-card{
+background:rgba(255,255,255,0.05);
+border-radius:15px;
+padding:20px;
+text-align:left;
+transition:0.3s;
+position:relative;
+overflow:hidden;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.update-card:hover{
+transform:translateY(-8px);
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+}
+
+.update-card::before{
+content:"";
+position:absolute;
+width:100%;
+height:4px;
+top:0;
+left:0;
+background:linear-gradient(to right,#38bdf8,#22c55e);
+}
+
+.update-card h3{
+margin-bottom:10px;
+color:#38bdf8;
+}
+
+.update-card p{
+font-size:14px;
+color:#cbd5f5;
+}
+
+.time{
+margin-top:15px;
+font-size:12px;
+color:#94a3b8;
+}
+
+/* BUTTON */
+.refresh-btn{
+margin-top:40px;
+padding:10px 20px;
+border:none;
+border-radius:8px;
+background:#38bdf8;
+color:#0f172a;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+}
+
+.refresh-btn:hover{
+background:#22c55e;
+}
+
+/* FOOTER */
+.footer{
+text-align:center;
+padding:20px;
+margin-top:50px;
+color:#64748b;
+font-size:13px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== SIDEBAR (REPLACED NAV ONLY) ===== -->
+<nav class="sidebar">
+  <ul>
+    <li><a href="adminpanel.html">ADMINPANEL</a></li>
+    <li><a href="register.html">REGISTER</a></li>
+    <li><a href="home.html">HOME</a></li>
+    <li><a href="login.html">LOGIN</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="live.html">LIVE</a></li>
+    <li><a href="events.html">EVENTS</a></li>
+    <li><a href="navigation.html">NAVIGATION</li>
+    <li><a href="booking.html">BOOKING</a></li>
+    <li><a href="payment.html">PAYMENT</a></li>
+    <li><a href="tickets.html">TICKETS</a></li>
+    <li><a href="attendence.html">ATTENDENCE</a></li>
+  </ul>
+</nav>
+
+<div class="main-content">
+
+<header class="header">
+<div class="logo">EVENT MANAGEMENT</div>
+</header>
+
+<section class="live-section">
+
+<h1>Live Event Updates</h1>
+<p>Stay updated with real-time event announcements</p>
+
+<div class="status">LIVE NOW</div>
+
+<div class="updates-container" id="updates">
+
+<div class="update-card">
+<h3>Technical Fest</h3>
+<p>Coding competition started in Hall A. Report immediately.</p>
+<div class="time">10:30 AM</div>
+</div>
+
+<div class="update-card">
+<h3>Cultural Dance</h3>
+<p>Dance performance begins at 2:00 PM in auditorium.</p>
+<div class="time">11:15 AM</div>
+</div>
+
+<div class="update-card">
+<h3>Workshop</h3>
+<p>AI & ML workshop seats filling fast. Register now!</p>
+<div class="time">12:00 PM</div>
+</div>
+
+<div class="update-card">
+<h3>Music Event</h3>
+<p>Live band starts at 6:00 PM near central stage.</p>
+<div class="time">1:00 PM</div>
+</div>
+
+</div>
+
+<button class="refresh-btn" onclick="addUpdate()">Add Live Update</button>
+
+</section>
+
+<div class="footer">
+© 2026 Event Management System | Live Updates
+</div>
+
+</div>
+<script>
+
+function addUpdate(){
+const container=document.getElementById("updates");
+
+const card=document.createElement("div");
+card.className="update-card";
+
+const time=new Date().toLocaleTimeString();
+
+card.innerHTML=`
+<h3>New Update</h3>
+<p>This is a newly added live update.</p>
+<div class="time">${time}</div>
+`;
+
+container.prepend(card);
+
+// 🔥 Load updates automatically
+function loadUpdates(){
+fetch("http://localhost:3000/live-updates")
+.then(res=>res.json())
+.then(data=>{
+const container=document.getElementById("updates");
+container.innerHTML="";
+
+data.forEach(update=>{
+const card=document.createElement("div");
+card.className="update-card";
+
+card.innerHTML=`
+<h3>${update.title}</h3>
+<p>${update.message}</p>
+<div class="time">${update.time}</div>
+`;
+
+container.appendChild(card);
+});
+});
+}
+
+// 🔥 Auto refresh every 5 seconds
+setInterval(loadUpdates, 5000);
+
+// first load
+loadUpdates();
+
+
+// 🔥 Add update (button)
+function addUpdate(){
+
+const title=prompt("Enter title:");
+const message=prompt("Enter message:");
+
+if(!title || !message) return;
+
+fetch("http://localhost:3000/add-update",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({ title, message })
+})
+.then(res=>res.json())
+.then(()=>{
+loadUpdates();
+});
+}
+}
+
+</script>
+
+</body>
+</html>

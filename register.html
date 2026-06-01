@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Poppins,sans-serif;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+color:white;
+}
+
+.container{
+width:350px;
+padding:30px;
+border-radius:20px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.1);
+box-shadow:0 8px 32px rgba(0,0,0,0.6);
+}
+
+h2{text-align:center;color:#38bdf8;}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+background:rgba(255,255,255,0.08);
+color:white;
+}
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#38bdf8;
+font-weight:bold;
+cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+
+<body>
+
+<div class="container">
+
+<h1>Registration</h1>
+
+<form onsubmit="registerUser(event)">
+
+<label>Full Name</label>
+<input type="text" name="fullName" required>
+
+<label>Email</label>
+<input type="email" name="email" required>
+
+<label>Student ID</label>
+<input type="text" name="student_id" required>
+
+<label>Password</label>
+<input type="password" name="password" required>
+
+<label>Date of Birth</label>
+<input type="date" name="dob">
+
+<div class="gender">
+<label>Gender</label><br>
+<input type="radio" name="gender" value="male"> Male
+<input type="radio" name="gender" value="female"> Female
+<input type="radio" name="gender" value="other"> Other
+</div>
+
+<input type="submit" value="Register">
+
+
+
+</form>
+
+
+</div>
+<script>
+function registerUser(e){
+    e.preventDefault();
+
+    const data = {
+        fullName: document.querySelector('[name="fullName"]').value,
+        email: document.querySelector('[name="email"]').value,
+        password: document.querySelector('[name="password"]').value,
+        student_id: document.querySelector('[name="student_id"]').value,
+        dob: document.querySelector('[name="dob"]').value,
+        gender: document.querySelector('[name="gender"]:checked')?.value
+    };
+
+    fetch("http://localhost:3000/register", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(res=>res.json())
+    .then(res=>{
+        if(res.success){
+            alert("✅ Registered Successfully");
+            window.location.href="/home";
+        } else {
+            alert(res.message);
+        }
+    })
+    .catch(err=>{
+        console.log(err);
+        alert("Server error");
+    });
+}
+</script>
+</body>
+</html>

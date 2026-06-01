@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Event Maps</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+body{
+    margin:0;
+    font-family:Poppins, Arial, sans-serif;
+    background:#081127;
+    color:#e2e8f0;
+}
+
+.app-container{
+    display:flex;
+    min-height:100vh;
+}
+
+.sidebar{
+    width:260px;
+    background:#0b1222;
+    border-right:1px solid rgba(255,255,255,0.07);
+    padding:24px;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    overflow-y:auto;
+}
+
+.sidebar .logo{
+    font-size:1.25rem;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:24px;
+    color:#38bdf8;
+}
+
+.sidebar nav ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.sidebar nav ul li a{
+    display:block;
+    text-decoration:none;
+    color:#cbd5f5;
+    padding:10px 12px;
+    border-radius:8px;
+    transition:0.2s;
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active{
+    background:#38bdf8;
+    color:#0f172a;
+}
+
+.main-content{
+    margin-left:260px;
+    padding:30px 32px;
+    width:100%;
+}
+
+.main-content h1{
+    margin-top:0;
+    margin-bottom:16px;
+    color:#f8fafc;
+}
+
+.container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-start;
+    gap:30px;
+}
+
+.map-card{
+    background:#0f172a;
+    padding:15px;
+    border-radius:15px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.4);
+    transition:0.4s;
+    width:320px;
+}
+
+.map-card:hover{
+    transform:translateY(-10px) scale(1.03);
+    box-shadow:0 25px 45px rgba(0,0,0,0.7);
+}
+
+iframe{
+    width:100%;
+    height:250px;
+    border:none;
+    border-radius:10px;
+}
+
+.map-title{
+    margin-top:10px;
+    font-weight:bold;
+    color:#cbd5f5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="logo">EVENT MANAGEMENT</div>
+        <nav>
+  <ul>
+    
+    <li><a href="register.html">REGISTER</a></li>
+    <li><a href="home.html">HOME</a></li>
+    <li><a href="login.html">LOGIN</a></li>
+    <li><a href="adminpanel.html">ADMINPANEL</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="live.html">LIVE</a></li>
+    <li><a href="events.html">EVENTS</a></li>
+    <li><a href="navigation.html">NAVIGATION</a></li>
+    <li><a href="booking.html">BOOKING</a></li>
+    <li><a href="payment.html">PAYMENT</a></li>
+    <li><a href="tickets.html">TICKETS</a></li>
+    <li><a href="attendence">ATTENDENCE</a></li>
+  </ul>
+</nav>
+    </aside>
+
+    <main class="main-content">
+        <h1>Event Address</h1>
+        <div class="container">
+
+<div class="map-card">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3803.8413990203057!2d78.44133607369396!3d17.562736197732914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb8ff8652b6823%3A0x981713dbb4b708c3!2sMalla%20Reddy%20University!5e0!3m2!1sen!2sin"></iframe>
+<div class="map-title">Malla Reddy University</div>
+</div>
+
+<div class="map-card">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3804.1449190815524!2d78.42885717369353!3d17.548285698152974!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb8f6a40c78ad1%3A0x743679d7810efe3f!2sMalla%20Reddy%20Vishwavidyapeeth!5e0!3m2!1sen!2sin"></iframe>
+<div class="map-title">Malla Reddy Vishwavidyapeeth</div>
+</div>
+
+<div class="map-card">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3803.9162864922496!2d78.44835187369382!3d17.55917189783659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb8f9f1fb120d1%3A0x2d4f935c2378dbe6!2sMalla%20Reddy%20(MR)%20Deemed%20to%20be%20University!5e0!3m2!1sen!2sin"></iframe>
+<div class="map-title">Malla Reddy (MR) Deemed to be University</div>
+</div>
+
+<div class="map-card">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3803.8833229429824!2d78.44344527369387!3d17.56074089779096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb8fa6b0990fa7%3A0x2429b184c901d478!2sMalla%20Reddy%20Institute%20Of%20Technology%20-%20MLTM!5e0!3m2!1sen!2sin"></iframe>
+<div class="map-title">Malla Reddy Institute Of Technology</div>
+</div>
+
+</div>
+    </main>
+</div>
+
+</body>
+</html>

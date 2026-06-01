@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Poppins, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      align-items: center;
+    }
+
+    .header .logo {
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+
+    .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100%;
+  background: #0f172a;
+  padding: 20px;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 12px 0;
+}
+
+.sidebar ul li a {
+  display: block;
+  color: #cbd5f5;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.sidebar ul li a:hover {
+  background: #1e293b;
+  color: #38bdf8;
+}
+
+    .main-content {
+  margin-left: 220px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+    .container {
+      max-width: 1140px;
+      margin: 20px auto;
+      padding: 0 16px 40px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 18px;
+      backdrop-filter: blur(6px);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #e2e8f0;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0 4px;
+      color: #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #94a3b8;
+      background: rgba(15, 23, 42, 0.85);
+      color: #e2e8f0;
+      box-sizing: border-box;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .row > * {
+      flex: 1;
+      min-width: 190px;
+    }
+
+    button {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #0f172a;
+      background: #38bdf8;
+      transition: opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.92;
+    }
+
+    .btn.secondary {
+      background: #475569;
+      color: white;
+    }
+
+    .btn.danger {
+      background: #ef4444;
+      color: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      color: #e2e8f0;
+    }
+
+    th,
+    td {
+      border: 1px solid #334155;
+      padding: 9px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.9);
+      font-weight: 700;
+    }
+
+    .status-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .status-yes {
+      background: #68d391;
+      color: #0f172a;
+    }
+
+    .status-no {
+      background: #fbbf24;
+      color: #1a202c;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .alert {
+      background: rgba(56, 189, 248, 0.15);
+      border-left: 4px solid #38bdf8;
+      padding: 10px;
+      margin-bottom: 12px;
+      color: #e0f2fe;
+    }
+  </style>
+</head>
+<body>
+ 
+    <nav class="sidebar">
+  <ul>
+    
+    <li><a href="register.html">REGISTER</a></li>
+    <li><a href="home.html">HOME</a></li>
+    <li><a href="login.html">LOGIN</a></li>
+    <li><a href="adminpanel.html">ADMINPANEL</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="live.html">LIVE</a></li>
+    <li><a href="events.html">EVENTS</a></li>
+    <li><a href="navigations.html">NAVIGATIONS</a></li>
+    <li><a href="booking.html">BOOKING</a></li>
+    <li><a href="payment.html">PAYMENT</a></li>
+    <li><a href="tickets.html">TICKETS</a></li>
+    <li><a href="attendence.h
+      ml">ATTENDENCE</a></li>
+  </ul>
+</nav>
+<div class="main-content">
+<header class="header">
+    <div class="logo">EVENT MANAGEMENT</div>
+  </header>
+  
+
+  <main class="container">
+    <section id="login-section" class="card">
+      <h2>Admin Login</h2>
+      <p class="alert">Admin access only. Enter admin credentials.</p>
+      <div class="row">
+        <div>
+          <label for="admin-username">Username</label>
+          <input id="admin-username" type="text" placeholder="admin" autocomplete="username" />
+        </div>
+        <div>
+          <label for="admin-password">Password</label>
+          <input id="admin-password" type="password" placeholder="admin123" autocomplete="current-password" />
+        </div>
+      </div>
+      <button id="login-btn">Login</button>
+      <p id="login-error" style="display:none;color:#f87171;margin-top:10px;">Invalid credentials.</p>
+      <p style="margin-top:10px;font-size:0.9rem;">Default: <strong>admin / admin123</strong></p>
+    </section>
+
+    <section id="admin-dashboard" class="card hidden">
+      <h2>Admin Controls</h2>
+      <div class="row">
+        <div>
+          <label for="event-name">Event Name</label>
+          <input id="event-name" type="text" placeholder="e.g., Tech Fest 2026" />
+        </div>
+        <div>
+          <label for="event-date">Event Date</label>
+          <input id="event-date" type="date" />
+        </div>
+        <div>
+          <label for="event-location">Location</label>
+          <input id="event-location" type="text" placeholder="e.g., Main Auditorium" />
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <button id="add-event-btn">Add Event</button>
+        <button id="clear-events-btn" class="btn danger">Clear All Events</button>
+      </div>
+    </section>
+
+    <section id="events-list" class="card hidden">
+      <h2>Events</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Event Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="events-table-body"></tbody>
+      </table>
+    </section>
+
+    <section id="students-overview" class="card hidden">
+      <h2>Students Overview</h2>
+      <p>Total students: <strong id="admin-total">0</strong></p>
+      <p>Going: <strong id="admin-attending">0</strong></p>
+      <p>Not going: <strong id="admin-not-attending">0</strong></p>
+      <p>Bookings done: <strong id="admin-tickets">0</strong></p>
+      <p>Proxy risks: <strong id="admin-proxy">0</strong></p>
+      <button id="export-data" class="btn secondary">Export Data (CSV)</button>
+      <button id="clear-students" class="btn danger" style="margin-left:8px;">Clear All Students</button>
+    </section>
+
+    <section id="student-record" class="card hidden">
+      <h2>Student Record Entry</h2>
+      <div class="row">
+        <div>
+          <label for="student-name">Student Name</label>
+          <input id="student-name" type="text" placeholder="e.g., Aman Singh" />
+        </div>
+        <div>
+          <label for="student-id">Student ID</label>
+          <input id="student-id" type="text" placeholder="e.g., CSE2026-01" />
+        </div>
+        <div>
+          <label for="student-section">Section</label>
+          <select id="student-section">
+            <option value="alpha">alpha</option>
+            <option value="beta">beta</option>
+            <option value="gama">gama</option>
+            <option value="delta">delta</option>
+            <option value="sigma">sigma</option>
+            <option value="omega">omega</option>
+            <option value="zeta">zeta</option>
+            <option value="epsilon">epsilon</option>
+          </select>
+        </div>
+        <div>
+          <label for="student-course">Course</label>
+          <select id="student-course">
+            <option>CSE</option>
+            <option>AIML</option>
+            <option>DS</option>
+            <option>IT</option>
+            <option>IOT</option>
+            <option>CS</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <div>
+          <label for="student-attending">Going to event</label>
+          <select id="student-attending">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div>
+          <label for="student-ticket">Ticket booked</label>
+          <select id="student-ticket">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div>
+          <label for="student-ticket-id">Ticket ID</label>
+          <input id="student-ticket-id" type="text" placeholder="Optional" />
+        </div>
+        <div>
+          <label for="student-ticket-details">Ticket Details</label>
+          <input id="student-ticket-details" type="text" placeholder="Optional" />
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <button id="add-student-record-btn">Add/Update Student</button>
+        <button id="reset-student-record-btn" class="btn secondary" style="margin-left:8px;">Reset</button>
+      </div>
+    </section>
+
+    <section id="update-status" class="card hidden">
+      <h2>Update Student Status</h2>
+      <div class="row">
+        <div>
+          <label for="update-student-id">Student ID</label>
+          <input id="update-student-id" type="text" placeholder="Enter student ID" />
+        </div>
+        <div>
+          <label for="update-student-status">Student Status</label>
+          <select id="update-student-status">
+            <option>Active</option>
+            <option>Inactive</option>
+          </select>
+        </div>
+        <div>
+          <label for="update-attendance-status">Attendance Status</label>
+          <select id="update-attendance-status">
+            <option>Confirmed</option>
+            <option>Pending</option>
+            <option>Cancelled</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <button id="update-status-btn">Update Status</button>
+      </div>
+    </section>
+      <h2>All Student Records</h2>
+      <div class="row">
+        <div>
+          <label for="admin-filter-section">Filter by section</label>
+          <select id="admin-filter-section">
+            <option value="all">All</option>
+            <option value="alpha">alpha</option>
+            <option value="beta">beta</option>
+            <option value="gama">gama</option>
+            <option value="delta">delta</option>
+            <option value="sigma">sigma</option>
+            <option value="omega">omega</option>
+            <option value="zeta">zeta</option>
+            <option value="epsilon">epsilon</option>
+          </select>
+        </div>
+        <div>
+          <label for="admin-filter-attending">Filter by attendance</label>
+          <select id="admin-filter-attending">
+            <option value="all">All</option>
+            <option value="yes">Going</option>
+            <option value="no">Not going</option>
+          </select>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Section</th>
+            <th>Course</th>
+            <th>Student Status</th>
+            <th>Going</th>
+            <th>Attendance Status</th>
+            <th>Ticket</th>
+            <th>Ticket ID</th>
+            <th>Ticket Details</th>
+            <th>Ticket Pic</th>
+            <th>QR Code</th>
+            <th>Proxy Risk</th>
+          </tr>
+        </thead>
+        <tbody id="admin-students-table-body"></tbody>
+      </table>
+    </section>
+  </main>
+</div>
+
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    
+
+  // 🔥 ADD HERE (anywhere inside script)
+
+  async function fetchStudents() {
+    const res = await fetch("http://localhost:3000/students");
+    const students = await res.json();
+
+    const tbody = document.getElementById("admin-students-table-body");
+    tbody.innerHTML = "";
+
+    students.forEach(s => {
+      const tr = document.createElement("tr");
+
+      const img = s.ticket_pic 
+        ? `<img src="http://localhost:3000/uploads/${s.ticket_pic}" width="60"/>`
+        : "-";
+
+      tr.innerHTML = `
+        <td>${s.student_name}</td>
+        <td>${s.student_id}</td>
+        <td>${s.student_section}</td>
+        <td>${s.student_course}</td>
+        <td>${s.student_status}</td>
+        <td>${s.student_attending}</td>
+        <td>${s.attendance_status}</td>
+        <td>${s.student_ticket ? 'Yes' : 'No'}</td>
+        <td>${s.student_ticket_id || '-'}</td>
+        <td>${s.student_ticket_details || '-'}</td>
+        <td>${img}</td>
+        <td>-</td>
+        <td>-</td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+  }
+
+
+    const ADMIN_STORAGE_KEY = 'adminCredentials';
+    const EVENTS_STORAGE_KEY = 'adminEvents';
+    const STUDENTS_STORAGE_KEY = 'facultyEventStudents'; // Shared with faculty
+
+    const admin = { username: 'admin', password: 'admin123' };
+
+    const loginSection = document.getElementById('login-section');
+    const adminDashboard = document.getElementById('admin-dashboard');
+    const eventsList = document.getElementById('events-list');
+    const studentsOverview = document.getElementById('students-overview');
+    const updateStatus = document.getElementById('update-status');
+    const loginError = document.getElementById('login-error');
+
+    function showAdminPanel() {
+      loginSection.classList.add('hidden');
+      adminDashboard.classList.remove('hidden');
+      eventsList.classList.remove('hidden');
+      studentsOverview.classList.remove('hidden');
+      updateStatus.classList.remove('hidden');
+      document.getElementById('student-record').classList.remove('hidden');
+      renderEvents();
+      renderStudentsOverview();
+      renderAllStudents();
+    }
+
+    function failLogin() {
+      loginError.style.display = 'block';
+      setTimeout(() => (loginError.style.display = 'none'), 2200);
+    }
+
+    document.getElementById('login-btn').addEventListener('click', () => {
+      // Direct login for admin
+      showAdminPanel();
+    });
+
+    // Auto-login on page load
+    window.addEventListener('load', () => {
+      showAdminPanel();
+    });
+
+    function getEvents() {
+      try {
+        return JSON.parse(localStorage.getItem(EVENTS_STORAGE_KEY) || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function setEvents(events) {
+      localStorage.setItem(EVENTS_STORAGE_KEY, JSON.stringify(events));
+    }
+
+    function getStudents() {
+      try {
+        return JSON.parse(localStorage.getItem(STUDENTS_STORAGE_KEY) || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function setStudents(students) {
+      localStorage.setItem(STUDENTS_STORAGE_KEY, JSON.stringify(students));
+    }
+
+    function resetStudentForm() {
+      document.getElementById('student-name').value = '';
+      document.getElementById('student-id').value = '';
+      document.getElementById('student-section').value = 'alpha';
+      document.getElementById('student-course').value = 'CSE';
+      document.getElementById('student-attending').value = 'yes';
+      document.getElementById('student-ticket').value = 'false';
+      document.getElementById('student-ticket-id').value = '';
+      document.getElementById('student-ticket-details').value = '';
+    }
+
+    function saveStudentRecord() {
+      const name = document.getElementById('student-name').value.trim();
+      const id = document.getElementById('student-id').value.trim();
+      if (!name || !id) {
+        alert('Student name and ID are required.');
+        return;
+      }
+
+      const section = document.getElementById('student-section').value;
+      const course = document.getElementById('student-course').value;
+      const attending = document.getElementById('student-attending').value;
+      const ticketBooked = document.getElementById('student-ticket').value === 'true';
+      const ticketId = document.getElementById('student-ticket-id').value.trim();
+      const ticketDetails = document.getElementById('student-ticket-details').value.trim();
+
+      let students = getStudents();
+      const idx = students.findIndex((s) => s.id === id);
+      const record = {
+        name,
+        id,
+        section,
+        course,
+        attending,
+        ticketBooked,
+        ticketId: ticketBooked ? ticketId : '',
+        ticketDetails: ticketBooked ? ticketDetails : '',
+        updatedAt: new Date().toISOString(),
+      };
+
+      if (idx === -1) {
+        students.push(record);
+      } else {
+        students[idx] = record;
+      }
+
+      setStudents(students);
+      resetStudentForm();
+      renderStudentsOverview();
+      renderAllStudents();
+    }
+
+    document.getElementById('add-student-record-btn').addEventListener('click', saveStudentRecord);
+    document.getElementById('reset-student-record-btn').addEventListener('click', resetStudentForm);
+
+    document.getElementById('add-event-btn').addEventListener('click', () => {
+      const name = document.getElementById('event-name').value.trim();
+      const date = document.getElementById('event-date').value;
+      const location = document.getElementById('event-location').value.trim();
+      if (!name || !date || !location) {
+        alert('All event fields are required');
+        return;
+      }
+      const events = getEvents();
+      events.push({ name, date, location, id: Date.now() });
+      setEvents(events);
+      renderEvents();
+      document.getElementById('event-name').value = '';
+      document.getElementById('event-date').value = '';
+      document.getElementById('event-location').value = '';
+    });
+
+    document.getElementById('clear-events-btn').addEventListener('click', () => {
+      if (confirm('Clear all events?')) {
+        localStorage.removeItem(EVENTS_STORAGE_KEY);
+        renderEvents();
+      }
+    });
+
+    document.getElementById('clear-students').addEventListener('click', () => {
+      if (confirm('Clear all student records?')) {
+        localStorage.removeItem(STUDENTS_STORAGE_KEY);
+        renderStudentsOverview();
+        renderAllStudents();
+      }
+    });
+
+    function renderEvents() {
+      const events = getEvents();
+      const tbody = document.getElementById('events-table-body');
+      tbody.innerHTML = '';
+      events.forEach(event => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${event.name}</td>
+          <td>${event.date}</td>
+          <td>${event.location}</td>
+          <td><button class="btn danger" onclick="deleteEvent(${event.id})">Delete</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function deleteEvent(id) {
+      const events = getEvents().filter(e => e.id !== id);
+      setEvents(events);
+      renderEvents();
+    }
+
+    function renderStudentsOverview() {
+      const students = getStudents();
+      const total = students.length;
+      const attending = students.filter(s => s.attending === 'yes').length;
+      const notAttending = students.filter(s => s.attending === 'no').length;
+      const tickets = students.filter(s => s.ticketBooked).length;
+      const proxy = students.filter(s => s.attending === 'yes' && !s.ticketBooked).length;
+
+      document.getElementById('admin-total').textContent = total;
+      document.getElementById('admin-attending').textContent = attending;
+      document.getElementById('admin-not-attending').textContent = notAttending;
+      document.getElementById('admin-tickets').textContent = tickets;
+      document.getElementById('admin-proxy').textContent = proxy;
+    }
+
+    function renderAllStudents() {
+      const students = getStudents();
+      const sectionFilter = document.getElementById('admin-filter-section').value;
+      const attendingFilter = document.getElementById('admin-filter-attending').value;
+
+      const tbody = document.getElementById('admin-students-table-body');
+      tbody.innerHTML = '';
+
+      students
+        .filter(s => (sectionFilter === 'all' || s.section === sectionFilter) && (attendingFilter === 'all' || s.attending === attendingFilter))
+        .forEach(s => {
+          const proxy = s.attending === 'yes' && !s.ticketBooked;
+          const ticketDetailText = s.ticketBooked && s.ticketDetails ? s.ticketDetails : '-';
+          const ticketPicDisplay = s.ticketBooked && s.ticketPic ? `<img src="${s.ticketPic}" style="max-width:80px; max-height:80px; border-radius:6px;" />` : '-';
+          const qrValue = s.ticketBooked && s.ticketId ? `Student:${s.id}|Ticket:${s.ticketId}|Section:${s.section}` : 'No Ticket';
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${s.name}</td>
+            <td>${s.id}</td>
+            <td>${s.section}</td>
+            <td>${s.course}</td>
+            <td><span class="status-pill status-yes">${s.studentStatus || 'Active'}</span></td>
+            <td><span class="status-pill ${s.attending === 'yes' ? 'status-yes' : 'status-no'}">${s.attending}</span></td>
+            <td><span class="status-pill ${s.attendanceStatus === 'Confirmed' ? 'status-yes' : 'status-no'}">${s.attendanceStatus || 'Pending'}</span></td>
+            <td>${s.ticketBooked ? '<span class="status-pill status-yes">Yes</span>' : '<span class="status-pill status-no">No</span>'}</td>
+            <td>${s.ticketId || '-'}</td>
+            <td>${ticketDetailText}</td>
+            <td>${ticketPicDisplay}</td>
+            <td><div class="qrcode-placeholder" data-code="${qrValue}"></div></td>
+            <td>${proxy ? '<span class="status-pill status-no">Risk</span>' : '<span class="status-pill status-yes">OK</span>'}</td>
+          `;
+          tbody.appendChild(tr);
+
+          const qrEl = tr.querySelector('.qrcode-placeholder');
+          if (qrEl) {
+            qrEl.style.width = '60px';
+            qrEl.style.height = '60px';
+            qrEl.style.background = 'white';
+            qrEl.style.padding = '4px';
+            qrEl.style.borderRadius = '6px';
+            qrEl.style.display = 'inline-block';
+            qrEl.style.textAlign = 'center';
+            qrEl.innerHTML = '';
+            if (s.ticketBooked && s.ticketId) {
+              new QRCode(qrEl, {
+                text: qrValue,
+                width: 60,
+                height: 60,
+              });
+            } else {
+              qrEl.textContent = 'No QR';
+              qrEl.style.color = '#e2e8f0';
+              qrEl.style.fontSize = '0.7rem';
+            }
+          }
+        });
+    }
+
+    document.getElementById('admin-filter-section').addEventListener('change', renderAllStudents);
+    document.getElementById('admin-filter-attending').addEventListener('change', renderAllStudents);
+
+    document.getElementById('update-status-btn').addEventListener('click', () => {
+      const id = document.getElementById('update-student-id').value.trim();
+      const studentStatus = document.getElementById('update-student-status').value;
+      const attendanceStatus = document.getElementById('update-attendance-status').value;
+      if (!id) {
+        alert('Enter student ID');
+        return;
+      }
+      const students = getStudents();
+      const student = students.find(s => s.id === id);
+      if (!student) {
+        alert('Student not found');
+        return;
+      }
+      student.studentStatus = studentStatus;
+      student.attendanceStatus = attendanceStatus;
+      setStudents(students);
+      renderStudentsOverview();
+      renderAllStudents();
+      document.getElementById('update-student-id').value = '';
+    });
+      const students = getStudents();
+      let csv = 'Name,ID,Section,Course,Student Status,Attending,Attendance Status,Ticket Booked,Ticket ID,Ticket Details\n';
+      students.forEach(s => {
+        csv += `"${s.name}","${s.id}","${s.section}","${s.course}","${s.studentStatus || 'Active'}","${s.attending}","${s.attendanceStatus || 'Pending'}","${s.ticketBooked}","${s.ticketId || ''}","${s.ticketDetails || ''}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'students_data.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>College Events - Book Tickets</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI', sans-serif;
+}
+
+body{
+background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:#fff;
+}
+
+/* ===== SIDEBAR (ADDED ONLY) ===== */
+.sidebar{
+position:fixed;
+top:0;
+left:0;
+width:220px;
+height:100%;
+background:#0f172a;
+padding:20px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar ul li{
+margin:15px 0;
+}
+
+.sidebar ul li a{
+text-decoration:none;
+color:#cbd5f5;
+padding:10px;
+display:block;
+border-radius:8px;
+}
+
+.sidebar ul li a:hover{
+background:#38bdf8;
+color:#0f172a;
+}
+
+/* SHIFT CONTENT */
+.main-content{
+margin-left:220px;
+}
+
+/* HEADER */
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+font-size:26px;
+font-weight:bold;
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(10px);
+border-bottom:1px solid rgba(255,255,255,0.2);
+}
+
+/* EVENT CARDS */
+.events{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+padding:30px;
+}
+
+.card{
+width:260px;
+border-radius:15px;
+background: rgba(255,255,255,0.05);
+backdrop-filter: blur(15px);
+border:1px solid rgba(255,255,255,0.2);
+box-shadow:0 8px 20px rgba(0,0,0,0.4);
+overflow:hidden;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+.card img{
+width:100%;
+height:160px;
+object-fit:cover;
+}
+
+.card-body{
+padding:15px;
+text-align:center;
+}
+
+.card-body h3{
+margin-bottom:10px;
+}
+
+.btn{
+padding:10px;
+width:100%;
+border:none;
+border-radius:10px;
+cursor:pointer;
+background: rgba(0,198,255,0.3);
+color:#fff;
+}
+
+.btn:hover{
+background: rgba(0,198,255,0.6);
+}
+
+/* SEATS */
+.seat-section{
+display:none;
+text-align:center;
+padding:20px;
+}
+
+.screen{
+margin:20px auto;
+padding:10px;
+width:300px;
+border-radius:10px;
+background: rgba(255,255,255,0.1);
+}
+
+.seats{
+display:grid;
+grid-template-columns:repeat(20,30px);
+gap:8px;
+justify-content:center;
+}
+
+.seat{
+width:30px;
+height:30px;
+border-radius:6px;
+cursor:pointer;
+background: rgba(255,255,255,0.2);
+}
+
+.seat.selected{
+background:#00c6ff;
+}
+
+.seat.booked{
+background:#555;
+cursor:not-allowed;
+}
+
+.confirm-btn{
+margin-top:20px;
+padding:12px 20px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+background:#00c6ff;
+color:#fff;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== SIDEBAR (ONLY CHANGE) ===== -->
+<nav class="sidebar">
+  <ul>
+    <li><a href="adminpanel.html">ADMINPANEL</a></li>
+    <li><a href="register.html">REGISTER</a></li>
+    <li><a href="home.html">HOME</a></li>
+    <li><a href="login.html">LOGIN</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="live.html">LIVE</a></li>
+    <li><a href="events.html">EVENTS</a></li>
+    <li><a href="navigation.html">NAVIGATION</li>
+    <li><a href="booking.html">BOOKING</a></li>
+    <li><a href="payment.html">PAYMENT</a></li>
+    <li><a href="tickets.html">TICKETS</a></li>
+    <li><a href="attendence.html">ATTENDENCE</a></li>
+  </ul>
+</nav>
+
+
+<div class="main-content">
+
+<header>
+     College Events Booking
+</header>
+
+<section class="events">
+
+<div class="card">
+<img src="https://tse3.mm.bing.net/th/id/OIP.wazEbzQtoN9dKzUlvDMICQHaEL?pid=Api&P=0&h=180">
+<div class="card-body">
+<h3>Technical Fest</h3>
+<p>Date: 25 March</p>
+<button class="btn" onclick="showSeats('Technical Fest')">Book Now</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://tse3.mm.bing.net/th/id/OIP.LudB9-jVenR5xoz6wgFVSgHaEH?pid=Api&P=0&h=180">
+<div class="card-body">
+<h3>Cultural Night</h3>
+<p>Date: 30 March</p>
+<button class="btn" onclick="showSeats('Cultural Night')">Book Now</button>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.pexels.com/photos/167636/pexels-photo-167636.jpeg">
+<div class="card-body">
+<h3>Music Concert</h3>
+<p>Date: 5 April</p>
+<button class="btn" onclick="showSeats('Music Concert')">Book Now</button>
+</div>
+</div>
+
+</section>
+
+<section class="seat-section" id="seatSection">
+
+<h2>Select Your Seats</h2>
+
+<div class="screen">STAGE</div>
+
+<div class="seats" id="seats"></div>
+
+<button class="confirm-btn" onclick="bookSeats()">Confirm Booking</button>
+
+</section>
+
+</div>
+
+<script>
+
+
+
+let currentEvent="";
+const seatsContainer=document.getElementById("seats");
+
+for(let i=1;i<=1000;i++){
+const seat=document.createElement("div");
+seat.classList.add("seat");
+
+seat.addEventListener("click",()=>{
+if(!seat.classList.contains("booked")){
+seat.classList.toggle("selected");
+}
+});
+
+seatsContainer.appendChild(seat);
+}
+
+function showSeats(eventName){
+
+currentEvent=eventName;
+
+document.getElementById("seatSection").style.display="block";
+
+document.querySelectorAll(".seat").forEach(seat=>{
+seat.classList.remove("selected","booked");
+});
+
+fetch(`http://localhost:3000/seats/${encodeURIComponent(eventName)}`)
+.then(res=>res.json())
+.then(bookedSeats=>{
+document.querySelectorAll(".seat").forEach((seat,index)=>{
+if(bookedSeats.includes(index+1)){
+seat.classList.add("booked");
+}
+});
+});
+}
+
+function bookSeats(){
+
+const selectedSeats=[];
+
+document.querySelectorAll(".seat.selected").forEach(seat=>{
+const seatIndex=[...document.querySelectorAll(".seat")].indexOf(seat);
+selectedSeats.push(seatIndex+1);
+});
+
+if(selectedSeats.length===0){
+alert("Please select at least one seat");
+return;
+}
+
+const bookingData={
+event:currentEvent,
+seats:selectedSeats,
+bookingDate:new Date().toLocaleDateString()
+};
+
+fetch("http://localhost:3000/book", {
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({
+userId: 1,
+event: currentEvent,
+seats: selectedSeats
+})
+})
+.then(res=>res.json())
+.then(data => {
+
+    if(data.success){
+
+        const totalPrice = selectedSeats.length * 500;
+
+        const cleanId = String(data.bookingId).trim();
+
+console.log("STORING ID:", cleanId);
+
+localStorage.setItem("bookingData", JSON.stringify({
+    bookingId: cleanId,
+    event: currentEvent,
+    seats: selectedSeats,
+    totalPrice: selectedSeats.length * 500
+}));
+            
+
+        window.location.href = "payment.html";
+
+    } else {
+        alert("Booking failed");
+    }
+
+})
+.catch(err=>{
+console.error(err);
+alert("Booking failed!");
+});
+}
+
+</script>
+
+</body>
+</html>
